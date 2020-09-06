@@ -1,0 +1,58 @@
+<html>
+    <body>
+    <div id="header">Medical Blockchain</div>
+    <div class=input>
+        <label for="PatientId">Patient Id</label>
+        <input type="text" id="PatientId" name="PatientId"><br><br>
+        <label for="HospitalName">Hospital Name</label>
+        <input type="text" id="HospitalName" name="HospitalName"><br><br>
+        <label for="Prescription">Prescription</label>
+        <input type="text" id="Prescription" name="Prescription"><br><br>
+        <label for="Description">Description</label>
+        <input type="text" id="Description" name="Description"><br><br>
+        <label for="Date">Date</label>
+        <input type="date" id="Date" name="Date"><br><br>
+        <button id="create">Create</button>        
+    </div>
+    <style>
+        .input {
+            display: inline-block;
+            border:1px solid black;
+            padding-top: 1%;
+            padding-left: 5%;
+            padding-right:5%;
+            padding-bottom: 1%;
+            margin-left: 30%;
+            margin-right: 20%;
+            margin-top: 5%;
+        }
+        #header {
+            width: 100%;
+            height: 50px;
+            font-weight: 1000;
+            font-size: x-large;
+            text-align: center;
+            background-color: blue;
+        }     
+        #create {
+               margin-left: 8em;
+        }
+        #date{
+            margin-left: 8em;
+        }
+        #Prescription{
+            margin-left: 3em
+        }
+        #HospitalName{
+            margin-left: 1em
+        }
+        #PatientId{
+            margin-left: 4.5em
+        }
+
+    </style>
+    <script src="javascript/newMedicalRecord.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </body>
+</html>

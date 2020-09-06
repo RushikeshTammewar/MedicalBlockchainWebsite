@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <div id="header">Medical Blockchain</div>
+     <a href="http://localhost:4000/index.html">Home Page</a><br>
+     <h1>Patient</h1>    
+     <button id="getRecords">Get All Records</button><br>
+     <button id="allowAccess" onclick="window.location.href = 'http://localhost:4000/allowPatient.html'">Allow access to Doctor</button><br>
+     <button id="getRelevantDoctors">Rank Doctors by Relevance</button><br>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="javascript/utility.js"></script>
+    <script>
+        var id=localStorage.getItem('PatientId');
+        console.log(id);
+        
+        var getRecords = document.getElementById("getRecords").addEventListener("click",function(){
+            console.log("clicked");
+            $.ajax({
+                    type : 'GET',
+                    url: 'http://localhost:3000/api/queries/selectMedicalRecordByPatientId?PatientId='+localStorage.getItem("PatientId"),
+                    dataType: 'json',
+                    async: false,
+                    success: function(response){
+                        console.log(response);
+                        localStorage.setItem("records",JSON.stringify(response));
+                        location.assign('http://localhost:4000/records.html');
+                    },
+                    error:function (request, status, error) {
+                        alert("Error");
+                    }
+                });
+        })
+
+        var getRelevantDoctors = document.getElementById("getRelevantDoctors").addEventListener("click",function(){
+            console.log("getting Relevant Doctors..");
+
+            $.ajax({
+                    type : 'GET',
+                    url: 'http://localhost:3000/api/queries/selectMedicalRecordByPatientId?PatientId='+localStorage.getItem("PatientId"),
+                    dataType: 'json',
+                    async: false,
+                    success: function(response){
+                        console.log(response);
+                        localStorage.setItem("current_patient",JSON.stringify(response));
+                        // location.assign('http://localhost:4000/records.html');
+                    },
+                    error:function (request, status, error) {
+                        alert("Error");
+                    }
+                });
+
+            $.ajax({
+                   type : 'GET',
+                   url : 'http://localhost:3000/api/queries/selectDoctors',
+                   dataType: 'json',
+                   async: false,
+                   success: function(response){
+                        console.log(response);
+                        // localStorage.setItem("records", JSON.stringify(response));
+                        
+                        doctors_and_patient = [];
+                        doctors_and_patient.append(localStorage.getItem('current_patient').description);
+                        // doctors_and_patient.append(Patient.description)
+                        for(var i=0;i<response.length;i++){
+                            doctors_and_patient.append(response[i].description);
+                        }
+
+                        var fs = require('fs');
+                        fs.writeFile("inp.txt", doctors_and_patient, function(err) {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+
+                        var exec = require('child_process').exec;
+
+                        child = exec('python3 bio_bert.py',
+                            function (error, stdout, stderr) {
+                                console.log('stdout: ' + stdout);
+                                console.log('stderr: ' + stderr);
+                                if (error !== null) {
+                                     console.log('exec error: ' + error);
+                                }
+                            });
+                         child();
+                         
+                        fs.readFile("ranks_out.json")
+                        let rankings = fs.readFileSync('ranks_out.json');
+                        let rankings = JSON.parse(rankings);
+                        console.log(rankings);
+                        // location.assign('http://localhost:4000/records.html');
+                    },
+
+                    error:function (request, status, error) {
+                        alert("Error");
+                    }
+
+                });
+        })
+
+        
+
+        
+    
+
+    </script>
+    <style>
+        #header {
+            width: 100%;
+            height: 50px;
+            font-weight: 1000;
+            font-size: x-large;
+            text-align: center;
+            background-color: blue;
+        }     
+    </style>
+</html>

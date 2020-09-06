@@ -1,0 +1,41 @@
+<html>
+    <body>
+    <div id="header">Medical Blockchain</div>
+    <div class="input">
+        <label for="patientId">PatientId</label>
+        <input type="text" id="patientId" name="patientId"><br><br>
+        <Button id="GetRecord">Get Record</Button>
+    </div>    
+    <style>
+        .input {
+                display: inline-block;
+                border:1px solid black;
+                padding-top: 1%;
+                padding-left: 5%;
+                padding-right:5%;
+                padding-bottom: 1%;
+                margin-left: 30%;
+                margin-right: 20%;
+                margin-top: 5%;
+            }
+         #header {
+            width: 100%;
+            height: 50px;
+            font-weight: 1000;
+            font-size: x-large;
+            text-align: center;
+            background-color: blue;
+        }     
+        #patientId{
+            margin-left: 2em;
+        }
+        #GetRecord{
+            margin-left: 7em;
+        }
+    </style>
+    <script src="javascript/getPatient.js"></script>
+    <script src="javascript/utility.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </body>
+</html>
