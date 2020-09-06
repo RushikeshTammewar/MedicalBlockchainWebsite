@@ -1,0 +1,9 @@
+
+./startFabric.sh
+./createPeerAdminCard.sh
+composer-playground
+composer network install --card PeerAdmin@hlfv1 --archiveFile empty-business-network@0.0.2-deploy.2.bna 
+composer network start --networkName empty-business-network --networkVersion 0.0.2-deploy.2 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+composer card import --file networkadmin.card
+composer network ping --card admin@empty-business-network
+composer-rest-server -c admin@empty-business-network -n never -u true -d Y
